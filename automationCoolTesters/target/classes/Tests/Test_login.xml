@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="LoginHRM" parallel="false">
+
+	<listeners>
+		<listener class-name="listeners.ScreenshotListener" />
+	
+	</listeners>
+	
+	<test name="Login Example" parallel="false">
+			
+		<parameter name="Browser" value="chrome" />
+			
+		<classes>
+		
+			<class name="hrm.tests.LoginInHrm">
+				<methods>
+					<include name="loginHRM" />
+				</methods>
+			</class>
+			
+		</classes>
+		
+	</test>
+</suite> 
