@@ -10,7 +10,8 @@ public class Estudiantes {
 
 	public static void main(String[] ARGS) {
 		
-		//variables
+		//variables 
+		//lee desde el teclado
 		Scanner obtener = new Scanner(System.in);
 		List<Float> calificaciones = new ArrayList<>();
 		
