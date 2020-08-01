@@ -27,7 +27,7 @@ import org.testng.annotations.Test;
  * 1. Entrar al sistema de HR (https://opensource-demo.orangehrmlive.com/) 
  * 2. Acceder correctamente al sistema (usuario:Admin password:admin123 ) 
  * 3. Validar que existen datos en la grafica del tab de Dashboard. 5. salir del sistema.
- *comentario
+ *comentario TEst
  */
 public class SeleniumEjemplo1  {
 	String url = "https://opensource-demo.orangehrmlive.com";
