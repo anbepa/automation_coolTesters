@@ -1,5 +1,7 @@
 package sergioEjerciciosSelenium;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -37,6 +39,7 @@ public class SeleniumEjemplo1 {
 		driver = new ChromeDriver(options);
 		PageFactory.initElements(driver, this);
 		driver.get(url);
+		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS) ;
 		
 	}
 	
@@ -51,7 +54,7 @@ public class SeleniumEjemplo1 {
 	public void login() {
 		txt_usuario.clear();
 		txt_contraseña.clear();
-		driver.findElement(By.id("txtUsername")).sendKeys(user);
+		txt_usuario.sendKeys(user);
 		Reporter.log("Usuario Ingresado: " + user , true);
 		txt_contraseña.sendKeys(password);
 		Reporter.log("Password Ingresado: " + password +"\n" , true);

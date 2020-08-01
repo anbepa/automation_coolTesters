@@ -5,9 +5,7 @@
 *.orig
 \.classpath
 **\target\classes\**
-**/*_REMOTE_*.groovy
-**/*_BACKUP_*.groovy
-**/*_BASE_*.groovy
 **/log.properties
 *\.gitignore
 automationCoolTesters\target\classes\.gitignore
+.settings\**
