@@ -10,3 +10,4 @@
 automationCoolTesters\target\classes\.gitignore
 .settings\**
 .settings\org.eclipse.jdt.core.prefs
+*.settings\**
