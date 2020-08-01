@@ -240,7 +240,7 @@ public class CommonsMethods extends TestListenerAdapter {
 		 * @author Sergio.Ramones
 		 * @Date 06/08/2020
 		 * @parameter jsonPath
-		 * */
+		 * */ 
 	  public JSONObject readJSON(String jsonPath) throws FileNotFoundException, ParseException {
 		  JSONObject jsonObject = null;
 		  try {	

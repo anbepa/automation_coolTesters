@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Reporter;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -19,8 +21,12 @@ public class SeleniumEjemplo1 {
 	String user="Admin";
 	String password = "admin123";
 	WebDriver driver;
-	WebElement txt_usuario = driver.findElement(By.id("txtUsername"));
-	WebElement txt_password = driver.findElement(By.id("txtPassword"));
+	@FindBy(id="txtUsername")
+	WebElement txt_usuario;
+	@FindBy(name="txtPassword")
+	WebElement txt_contraseña;
+	@FindBy(name="btnLogin")
+	WebElement btn_login;
 	
 	@BeforeTest
 	public void startWebDriver() {
@@ -29,27 +35,27 @@ public class SeleniumEjemplo1 {
 		options.addArguments("--incognito");
 		System.setProperty("webdriver.chrome.driver", "chromedriver\\chromedriver.exe");
 		driver = new ChromeDriver(options);
+		PageFactory.initElements(driver, this);
 		driver.get(url);
 		
 	}
 	
 	@Test(priority=1)
 	public void loginFail() {
-		 
 		txt_usuario.sendKeys("Admin");
-		txt_password.sendKeys("admin12");
-		driver.findElement(By.id("btnLogin")).submit();
+		txt_contraseña.sendKeys("admin12");
+		btn_login.submit();
 	}
 	
 	@Test(priority=2)
 	public void login() {
-		driver.findElement(By.id("txtUsername")).clear();
-		driver.findElement(By.id("txtPassword")).clear();
+		txt_usuario.clear();
+		txt_contraseña.clear();
 		driver.findElement(By.id("txtUsername")).sendKeys(user);
 		Reporter.log("Usuario Ingresado: " + user , true);
-		driver.findElement(By.id("txtPassword")).sendKeys(password);
+		txt_contraseña.sendKeys(password);
 		Reporter.log("Password Ingresado: " + password +"\n" , true);
-		driver.findElement(By.id("btnLogin")).submit();
+		btn_login.submit();
 		Reporter.log("Click en Login\n", true);
 	}
 	
