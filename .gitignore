@@ -6,6 +6,6 @@
 **/log.properties
 .project
 .classpath
-*.settings/
+*/.settings/*
 *.gitignore
-.gitignore
+*.prefs
