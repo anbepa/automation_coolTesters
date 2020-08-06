@@ -126,6 +126,10 @@ public class SeleniumEjemplo1  {
 				break;
 				
 			}
+			if(i>list_Menu.size()) {
+				Assert.assertTrue(false, "El elemento en la lista no existe");
+			}
+			
 			
 		}//endfor
 		
