@@ -28,8 +28,6 @@ public class LoginInHrm extends CommonsMethods{
 		url =  getText.get("url").toString();
 		txt_user =  getText.get("user").toString();
 		txt_password =  getText.get("password").toString();
-		
-
 	}
 
 	@Parameters({ "Browser" })
@@ -37,6 +35,7 @@ public class LoginInHrm extends CommonsMethods{
 	public void loginHRM(String browser) throws Exception {
 
 		driver = CommonsMethods.StartDriver(url, browser);
+		
 		Login login = PageFactory.initElements(driver, Login.class);
 		login.loginHRM(txt_user, txt_password);
 	
