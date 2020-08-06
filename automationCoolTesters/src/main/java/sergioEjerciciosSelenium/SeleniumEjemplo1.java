@@ -1,6 +1,7 @@
 package sergioEjerciciosSelenium;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
@@ -107,6 +108,27 @@ public class SeleniumEjemplo1  {
 		if(tbl_menu.isDisplayed()) {
 			Reporter.log("El login fue exitoso", true);
 		}
+		
+		List<WebElement> list_Menu = driver.findElements(By.xpath("//li[@class='main-menu-first-level-list-item']//b"));
+		
+//		for(WebElement object : list_Menu) {
+//			
+//		}
+		String option="Buzz";
+		System.out.println("La cantidad de elementos en la lista es : " + list_Menu.size());
+		System.out.println("La opcion seleccionada es : "+ option);
+		for(int i = 0; i<list_Menu.size(); i++) {
+			
+			System.out.println(list_Menu.get(i).getText());
+			if(list_Menu.get(i).getText().equals(option)) {
+				
+				list_Menu.get(i).click();
+				break;
+				
+			}
+			
+		}//endfor
+		
 		
 //		if(driver.getPageSource().contains("Dashboard")) {
 //			Reporter.log("El login fue exitoso", true);
