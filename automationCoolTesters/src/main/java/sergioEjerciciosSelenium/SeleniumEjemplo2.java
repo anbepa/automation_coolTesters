@@ -23,13 +23,13 @@ import commons.TestBase;
  * 3. Validar que existen datos en la grafica del tab de Dashboard. 5. salir del sistema.
  *comentario TEst
  */
-public class SeleniumEjemplo1  {
+public class SeleniumEjemplo2 extends TestBase {
 	String url = "https://opensource-demo.orangehrmlive.com";
-	String user="Admin"; 
+	String user="Admin";
 	String password = "admin123";
-	WebDriver driver;
+	
 	WebDriverWait wait;
-	TestBase obj = new TestBase();
+	
 	//elementos
 	@FindBy(id="txtUsername")
 	WebElement txt_usuario;
@@ -47,7 +47,7 @@ public class SeleniumEjemplo1  {
 	@BeforeTest
 	public void startWebDriver() {
 		
-		driver = obj.startWebDriver(url);
+		driver = startWebDriver(url);
 		PageFactory.initElements(driver, this);
 		
 		
@@ -86,12 +86,12 @@ public class SeleniumEjemplo1  {
 //		Reporter.log("Usuario Ingresado: " + user , true);
 //		txt_contraseña.sendKeys(password);
 //		Reporter.log("Password Ingresado: " + password +"\n" , true);
-		obj.ingresarTexto(txt_usuario,user);
-		obj.ingresarTexto(txt_contraseña,password);
+		ingresarTexto(txt_usuario,user);
+		ingresarTexto(txt_contraseña,password);
 		btn_login.click();
 		Reporter.log("Click en Login\n", true);
 		
-		obj.verificarElemento(tbl_menu);
+		verificarElemento(tbl_menu);
 	
 		
 		if(tbl_menu.isDisplayed()) {
