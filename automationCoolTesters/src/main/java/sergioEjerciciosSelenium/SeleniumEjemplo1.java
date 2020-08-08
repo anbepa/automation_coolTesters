@@ -1,26 +1,20 @@
 package sergioEjerciciosSelenium;
 
-import java.time.Duration;
-import java.util.NoSuchElementException;
-import java.util.concurrent.TimeUnit;
+import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
+import commons.TestBase;
 
 
 /*
@@ -31,10 +25,11 @@ import org.testng.annotations.Test;
  */
 public class SeleniumEjemplo1  {
 	String url = "https://opensource-demo.orangehrmlive.com";
-	String user="Admin";
+	String user="Admin"; 
 	String password = "admin123";
 	WebDriver driver;
 	WebDriverWait wait;
+	TestBase obj = new TestBase();
 	//elementos
 	@FindBy(id="txtUsername")
 	WebElement txt_usuario;
@@ -51,15 +46,10 @@ public class SeleniumEjemplo1  {
 	
 	@BeforeTest
 	public void startWebDriver() {
-		ChromeOptions options = new ChromeOptions();
-		options.addArguments("--start-maximized");
-		options.addArguments("--incognito");
-		System.setProperty("webdriver.chrome.driver", "chromedriver\\chromedriver.exe");
-		driver = new ChromeDriver(options);
+		
+		driver = obj.startWebDriver(url);
 		PageFactory.initElements(driver, this);
-		driver.get(url);
-		driver.manage().timeouts().implicitlyWait(2,TimeUnit.SECONDS);
-		wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+		
 		
 	}
 	
@@ -96,17 +86,42 @@ public class SeleniumEjemplo1  {
 //		Reporter.log("Usuario Ingresado: " + user , true);
 //		txt_contraseña.sendKeys(password);
 //		Reporter.log("Password Ingresado: " + password +"\n" , true);
-		ingresarTexto(txt_usuario,user);
-		ingresarTexto(txt_contraseña,password);
+		obj.ingresarTexto(txt_usuario,user);
+		obj.ingresarTexto(txt_contraseña,password);
 		btn_login.click();
 		Reporter.log("Click en Login\n", true);
 		
-		verificarElemento(tbl_menu);
+		obj.verificarElemento(tbl_menu);
 	
 		
 		if(tbl_menu.isDisplayed()) {
 			Reporter.log("El login fue exitoso", true);
 		}
+		
+		List<WebElement> list_Menu = driver.findElements(By.xpath("//li[@class='main-menu-first-level-list-item']//b"));
+		
+//		for(WebElement object : list_Menu) {
+//			
+//		}
+		String option="Buzz";
+		System.out.println("La cantidad de elementos en la lista es : " + list_Menu.size());
+		System.out.println("La opcion seleccionada es : "+ option);
+		for(int i = 0; i<list_Menu.size(); i++) {
+			
+			System.out.println(list_Menu.get(i).getText());
+			if(list_Menu.get(i).getText().equals(option)) {
+				
+				list_Menu.get(i).click();
+				break;
+				
+			}
+			if(i>list_Menu.size()) {
+				Assert.assertTrue(false, "El elemento en la lista no existe");
+			}
+			
+			
+		}//endfor
+		
 		
 //		if(driver.getPageSource().contains("Dashboard")) {
 //			Reporter.log("El login fue exitoso", true);
@@ -122,55 +137,10 @@ public class SeleniumEjemplo1  {
 //		driver.close();
 	}
 	
-	/*
-	 * @Descripcion Metodo que revisa que un elemento exista
-	 * @Autor Sergio
-	 * @Date 01/08/2020
-	 * @Paramentros WebElement
-	 * */
-	public void verificarElemento(WebElement objecto) {
-		try {
-			wait.until(ExpectedConditions.visibilityOf(objecto));
-			wait.until(ExpectedConditions.elementToBeClickable(objecto));
-			Reporter.log("El Elemento existe:", true);
-		} catch (Exception e) {
-			Reporter.log("El Elemento no existe:", true);
-			e.printStackTrace();
-		}
-	}//
-	
-	/*
-	 * @Descripcion Metodo para hacer scroll a un webelement
-	 * @Autor Sergio
-	 * @Date 01/08/2020
-	 * @Paramentros WebElement
-	 * */
-	public void scrollToElement(WebElement objecto) {
-		try {
-				((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", objecto);
-				Reporter.log("Scroll al elemento :", true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+
 	
 	
-	/*
-	 * @Descripcion Metodo para infresar el texto
-	 * @Autor Sergio
-	 * @Date 01/08/2020
-	 * @Paramentros WebElement, Texto
-	 * */
-	public void ingresarTexto(WebElement objecto, String texto) {
-		try {	verificarElemento(objecto);
-				scrollToElement(objecto);
-				objecto.clear();
-				objecto.sendKeys(texto);
-				Reporter.log("El texto se ingreso correctamente :" + texto , true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	
 	
 
 }
